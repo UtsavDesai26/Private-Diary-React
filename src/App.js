@@ -7,28 +7,42 @@ import Alert from './components/Alert';
 import Navbar from './components/Navbar';
 import About from './components/About';
 import NoteState from './context/notes/NoteState';
+import { useState } from 'react';
 
 
 function App() {
+
+  const [alert, setAlert] = useState(null);
+
+  const showAlert = (message, type)=>{
+      setAlert({
+        msg: message,
+        type: type
+      })
+      setTimeout(() => {
+          setAlert(null);
+      }, 1500);
+  }
+
   return (
     <>
       <NoteState>
         <Router>
           <Navbar />
-          <Alert message="This is iNotebook React Project" />
+          <Alert alert={alert}/>
           <div className="container">
             <Switch>
               <Route exact path="/">
-                <Home />
+                <Home showAlert={showAlert} />
               </Route>
               <Route exact path="/about">
                 <About />
               </Route>
               <Route exact path="/login">
-                <Login />
+                <Login showAlert={showAlert} />
               </Route>
               <Route exact path="/signup">
-                <Signup />
+                <Signup showAlert={showAlert} />
               </Route>
             </Switch>
           </div>

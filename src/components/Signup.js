@@ -8,13 +8,13 @@ const Signup = (props) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const {name, email, password} =  credentials;
+        const { name, email, password } = credentials;
         const response = await fetch("http://localhost:8080/api/auth/createuser", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name, email, password})
+            body: JSON.stringify({ name, email, password })
         });
         const json = await response.json()
         console.log(json);
@@ -22,10 +22,10 @@ const Signup = (props) => {
             // Save the auth token and redirect
             localStorage.setItem('token', json.authtoken);
             history.push("/login");
-            props.showAlert("Account Crate Successfully","success ")
+            props.showAlert("Account Crate Successfully", "success ")
         }
         else {
-            props.showAlert("Invalid credentials","danger")
+            props.showAlert("Invalid credentials", "danger")
         }
     }
 
@@ -34,7 +34,8 @@ const Signup = (props) => {
     }
 
     return (
-        <div className='container'>
+        <div className='mt-3 container'>
+            <h2>Create account to continue to iNotebook</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">Name</label>
@@ -53,7 +54,7 @@ const Signup = (props) => {
                     <label htmlFor="cpassword" className="form-label">Confirm Password</label>
                     <input type="password" className="form-control" id="cpassword" name="cpassword" onChange={onChange} minLength={5} required />
                 </div>
-            
+
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
         </div>

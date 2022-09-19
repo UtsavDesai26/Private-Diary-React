@@ -9,12 +9,11 @@ const Notes = (props) => {
     const { notes, getNotes, editNote } = context;
     let history = useHistory();
     useEffect(() => {
-        // if(localStorage.getItem('token')){
-        //     getNotes()
-        // }else{
-        //     history.push("/login")
-        // }
-        getNotes()
+        if(localStorage.getItem('token')){
+            getNotes()
+        }else{
+            history.push("/login")
+        }
         // eslint-disable-next-line
     }, [])
     const ref = useRef(null)
